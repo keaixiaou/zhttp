@@ -37,7 +37,7 @@ class Controller {
     public function coroutineApiStart(){
         $result = yield call_user_func([$this, $this->method]);
         $result = json_encode($result);
-        Log::write('result:' . ($result), Log::INFO);
+//        Log::write('result:' . ($result), Log::INFO);
         $this->response->end($result);
         $this->destroy();
     }
@@ -48,12 +48,15 @@ class Controller {
     public function coroutineHtmlStart(){
         yield call_user_func([$this, $this->method]);
         if($this->tplFile===''){
-            $tplPath = Config::getField('project', 'tpl_path', ZPHP::getRootPath() . DS  . 'view' . DS );
+            $tplPath = Config::getField('project', 'tpl_path', ZPHP::getRootPath() . DS.'apps'.DS  . 'view' . DS );
             $this->tplFile = $this->module.DS.$this->controller.DS.$this->method.'.php';
         }
         $tplFile = $tplPath.$this->tplFile;
         \ob_start();
         extract($this->tplVar);
+        if(!is_file($tplFile)){
+            throw new \Exception("模板不存在.");
+        }
         include "{$tplFile}";
         $content = ob_get_contents();
         \ob_end_clean();
@@ -106,3 +109,4 @@ class Controller {
         unset($this->response);
     }
 }
+

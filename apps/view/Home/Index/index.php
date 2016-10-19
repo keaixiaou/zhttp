@@ -44,7 +44,7 @@
 <body>
 <div class="container" style="width:100%">
     <div class="content">
-        <div class="title">Hello 口语训练22 <?php echo $data['cache']?>.</div>
+        <div class="title">Hello 口语训练 <?php echo $data['cache']?>.</div>
     </div>
 </div>
 <div class="rich_media_content " id="js_content" style="display: table-row-group;">

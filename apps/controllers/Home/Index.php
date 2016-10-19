@@ -8,7 +8,6 @@
 
 namespace controllers\Home;
 
-use service\TestService;
 use ZPHP\Cache\Factory;
 use ZPHP\Cache\ICache;
 use ZPHP\Controller\ApiController;
@@ -30,9 +29,8 @@ class Index extends ApiController{
 //        return $data;
 
         //使用2-也可直接在controller层,但是调用底层需要写yield
-        yield Db::redis()->cache('abcd1',1111);
+//        yield Db::redis()->cache('abcd1',1111);
         $data = yield Db::redis()->cache('abcd1');
-        $res['cache'] = $data;
 //        $user = yield table('admin_user')->where(['id' => 2])->find();
 //        $res['user'] = $user;
 //        $httpClient = new HttpClientCoroutine();
@@ -41,7 +39,6 @@ class Index extends ApiController{
 //        $res['http'] = $data;
         $this->assign('data', $res);
         $this->display();
-        return $res;
 
 
 //        $res['last_sql'] = Db::getLastSql();
