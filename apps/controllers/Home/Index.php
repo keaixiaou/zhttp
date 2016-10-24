@@ -8,6 +8,7 @@
 
 namespace controllers\Home;
 
+use service\TestService;
 use ZPHP\Cache\Factory;
 use ZPHP\Cache\ICache;
 use ZPHP\Controller\ApiController;
@@ -39,7 +40,7 @@ class Index extends Controller{
         //$postData 为空则表示是get请求,不为空为post请求
 //        $res['http'] = $data;
         $this->assign('data', $res);
-        $this->display();
+        $this->display('test');
 
 
 //        $res['last_sql'] = Db::getLastSql();

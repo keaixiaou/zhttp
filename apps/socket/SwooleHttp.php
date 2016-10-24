@@ -22,35 +22,12 @@ class SwooleHttp extends ZSwooleHttp
     {
         ob_start();
         try {
-            $mvc = Config::getField('project','mvc');
+
             $uri = $request->server['path_info'];
             if(strpos($uri,'.')!==false){
                 throw new \Exception(403);
             }
-            $url_array = explode('/', $uri);
-            if(!isset($url_array[3])){
-                if(!empty($url_array[1])){
-                    $mvc['controller'] = $url_array[1];
-                };
-                if(!empty($url_array[2])){
-                    $mvc['action'] = $url_array[2];
-                };
-            }else{
-                if(!empty($url_array[1])){
-                    $mvc['module'] = $url_array[1];
-                };
-                if(!empty($url_array[2])){
-                    $mvc['controller'] = $url_array[2];
-                };
-                if(!empty($url_array[3])){
-                    $mvc['action'] = $url_array[3];
-                };
-            }
-            $mvc = [
-                'module'=>ucwords($mvc['module']),
-                'controller'=>ucwords($mvc['controller']),
-                'action'=>$mvc['action'],
-            ];
+            $mvc = $this->getMvcByUri($uri);
             $controllerClass = Config::get('ctrl_path', 'controllers') . '\\'
                 .$mvc['module'].'\\'.$mvc['controller'];
 
@@ -98,15 +75,45 @@ class SwooleHttp extends ZSwooleHttp
         }
         $result = ob_get_contents();
         ob_end_clean();
-//        if(!empty($controller->is_api)){
-//            $response->header('Content-Type', 'application/json');
-//        }
-
         if(!empty($result)) {
             $response->end($result);
         }
     }
 
+
+    /**
+     * @param $uri
+     * @return array|null
+     * @throws \Exception
+     */
+    protected function getMvcByUri($uri){
+        $mvc = Config::getField('project','mvc');
+        $url_array = explode('/', trim($uri,'/'));
+        if(!isset($url_array[3])){
+            if(!empty($url_array[1])){
+                $mvc['controller'] = $url_array[1];
+            };
+            if(!empty($url_array[2])){
+                $mvc['action'] = $url_array[2];
+            };
+        }else{
+            if(!empty($url_array[1])){
+                $mvc['module'] = $url_array[1];
+            };
+            if(!empty($url_array[2])){
+                $mvc['controller'] = $url_array[2];
+            };
+            if(!empty($url_array[3])){
+                $mvc['action'] = $url_array[3];
+            };
+        }
+        $mvc = [
+            'module'=>ucwords($mvc['module']),
+            'controller'=>ucwords($mvc['controller']),
+            'action'=>$mvc['action'],
+        ];
+        return $mvc;
+    }
 
     /**
      * @param $server
