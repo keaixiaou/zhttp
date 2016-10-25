@@ -116,8 +116,8 @@ $data = Db::collection('stu_quest_score')->findOne(['iStuId'=>26753]);
 
 ![本机裸跑输出](https://raw.githubusercontent.com/keaixiaou/base/master/zhttpredis.png)
 
-##ab测试-本机(mac air)查询mysql，一个work进程，4个链接mysql连接池
-![本机查询mysql](https://raw.githubusercontent.com/keaixiaou/base/master/swoole3.jpeg)
+##ab测试-本机(mac air)查询mysql，4个work进程，每个work10个链接mysql连接池
+![本机查询mysql](https://raw.githubusercontent.com/keaixiaou/base/master/mysql.png)
 
 
 
