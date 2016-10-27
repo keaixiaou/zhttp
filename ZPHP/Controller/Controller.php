@@ -89,7 +89,7 @@ class Controller {
         $this->tmodule = $this->module;
         $this->tcontroller = $this->controller;
         $this->tmethod = $this->method;
-        yield call_user_func([$this, $this->method]);
+        $data = yield call_user_func([$this, $this->method]);
         $this->analysisTplFile($this->tplFile);
         $tplPath = Config::getField('project', 'tpl_path', ZPHP::getRootPath() . DS.'apps'.DS  . 'view' . DS );
         $tplFile = $tplPath.$this->tmodule.DS.$this->tcontroller.DS.$this->tmethod.'.html';;

@@ -52,7 +52,6 @@ class CoroutineTask{
                     continue;
                 }
 
-
                 //异步IO的父类
                 if(is_subclass_of($value, 'ZPHP\Coroutine\Base\ICoroutineBase')){
                     $this->stack->push($routine);
@@ -68,13 +67,15 @@ class CoroutineTask{
                 }
 
                 if($value===null) {
-                    $return = $routine->getReturn();
+                    try {
+                        $return = $routine->getReturn();
+                    }catch(\Exception $e){
+                        $return = null;
+                    }
                     if(!empty($return)){
                         $this->callbackData = $return;
                     }
-
 //                    Log::write('return:'.__METHOD__.print_r($return, true));
-//                    Log::write('controller:'.__METHOD__.print_r($this->routine->controller, true));
                     if (!$this->stack->isEmpty()) {
                         $routine = $this->stack->pop();
                         $routine->send($this->callbackData);
