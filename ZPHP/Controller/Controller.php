@@ -69,14 +69,14 @@ class Controller {
                     $this->tmethod = $tplExplode[1];
                 }
             }else{
-                if(!empty($tplExplode[2])){
-                    $this->tmodule = $tplExplode[2];
+                if(!empty($tplExplode[0])){
+                    $this->tmodule = $tplExplode[0];
                 }
                 if(!empty($tplExplode[1])){
                     $this->tcontroller = $tplExplode[1];
                 }
-                if(!empty($tplExplode[0])){
-                    $this->tmethod = $tplExplode[0];
+                if(!empty($tplExplode[2])){
+                    $this->tmethod = $tplExplode[2];
                 }
             }
         }
@@ -130,7 +130,7 @@ class Controller {
      * 异常处理
      */
     public function onExceptionHandle(\Exception $e){
-        $msg = DEBUG===true?$e->getMessage():'服务器升空了!';
+        $msg = DEBUG===true?$e->getMessage():'服务器暂时故障了';
         $this->response->status(500);
         $this->response->end(Swoole::info($msg));
         $this->destroy();
@@ -141,8 +141,9 @@ class Controller {
      * @param $message
      */
     public function onSystemException($message){
+        $message = DEBUG===true?$message:'系统出现了异常';
         $this->response->status(500);
-        $this->response->end(Swoole::info('系统出现了异常:'.$message));
+        $this->response->end(Swoole::info($message));
         $this->destroy();
     }
 

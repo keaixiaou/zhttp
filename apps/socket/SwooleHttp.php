@@ -61,7 +61,7 @@ class SwooleHttp extends ZSwooleHttp
                 unset($controller);
             }catch(\Exception $e){
                 $response->status(500);
-                $msg = DEBUG===true?$e->getMessage():'服务器升空了!';
+                $msg = DEBUG===true?$e->getMessage():'服务器临时出了点小差';
                 echo Swoole::info($msg);
             }
 
