@@ -1,8 +1,10 @@
 <?php
-use ZPHP\ZPHP;
 
 define("ROOTPATH", dirname(__DIR__));
+
+require ROOTPATH.'/vendor/autoload.php';
+use ZPHP\ZPHP;
+
 define('DEBUG', true);
-require  ROOTPATH.'/ZPHP/ZPHP.php';
 
 ZPHP::run(ROOTPATH);

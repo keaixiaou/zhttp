@@ -23,14 +23,16 @@ use ZPHP\Model\Model;
 
 class Index extends Controller{
     public function index(){
-        $data = yield table('admin_user')->where(['id'=>1])->find();
-        $this->assign('data', $data);
+        if(!empty($_SESSION['user'])){
+            $data = yield table('admin_user')->where(['id'=>1])->find();
+            $_SESSION['user'] = $data['result'][0];
+        }
         $this->display();
     }
 
 
     public function test(){
         $this->assign('data','hello zhttp');
-        $this->display();
+        $this->display('home/index/test');
     }
 }

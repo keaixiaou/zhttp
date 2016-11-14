@@ -9,6 +9,7 @@ use ZPHP\Core\Log;
 use ZPHP\Core\Swoole;
 use ZPHP\Coroutine\Base\CoroutineTask;
 use ZPHP\Protocol\Response;
+use ZPHP\Session\Session;
 use ZPHP\Socket\Callback\SwooleHttp as ZSwooleHttp;
 use ZPHP\Socket\IClient;
 
@@ -22,14 +23,15 @@ class SwooleHttp extends ZSwooleHttp
     {
         ob_start();
         try {
-
+            $mvc = Config::getField('project','mvc');
             $uri = $request->server['path_info'];
             if(strpos($uri,'.')!==false){
                 throw new \Exception(403);
             }
             $mvc = $this->getMvcByUri($uri);
+
             $controllerClass = Config::get('ctrl_path', 'controllers') . '\\'
-                .$mvc['module'].'\\'.$mvc['controller'];
+                .ucwords($mvc['module']).'\\'.ucwords($mvc['controller']);
 
             $FController = Factory::getInstance($controllerClass);
             if(empty($FController)){
@@ -41,13 +43,15 @@ class SwooleHttp extends ZSwooleHttp
             }
             $controller = clone $FController;
             $action = $mvc['action'];
-
             if(!method_exists($controller, $action)){
                 throw new \Exception(404);
             }
+
+            $this->doBeforeStart($request, $response);
             $controller->module = $mvc['module'];
             $controller->controller = $mvc['controller'];
             $controller->method= $action;
+            $controller->request = $request;
             $controller->response = $response;
             $action = 'coroutine'.(!empty($controller->isApi)?'Api':'Html').'Start';
             try{
@@ -61,7 +65,7 @@ class SwooleHttp extends ZSwooleHttp
                 unset($controller);
             }catch(\Exception $e){
                 $response->status(500);
-                $msg = DEBUG===true?$e->getMessage():'服务器临时出了点小差';
+                $msg = DEBUG===true?$e->getMessage():'服务器升空了!';
                 echo Swoole::info($msg);
             }
 
@@ -75,11 +79,33 @@ class SwooleHttp extends ZSwooleHttp
         }
         $result = ob_get_contents();
         ob_end_clean();
+
         if(!empty($result)) {
             $response->end($result);
         }
     }
 
+
+    /**
+     * 处理请求前的一些操作
+     * @param $request
+     * @param $response
+     * @throws \Exception
+     */
+    protected function doBeforeStart($request, $response){
+        //获取session
+        if(!empty(Config::getField('session','enable'))) {
+            $_SESSION = Session::get($request, $response);
+            Log::write('session:'.json_encode($_SESSION));
+        }
+        //传入请求参数
+        if(!empty($request->cookie))$_COOKIE = $request->cookie;
+        if(!empty($request->post))$_POST = $request->post;
+        if(!empty($request->get))$_GET = $request->get;
+        if(!empty($request->files)) $_FILES = $request->files;
+        if(!empty($request->server)) $_SERVER = $request->server;
+
+    }
 
     /**
      * @param $uri
@@ -110,6 +136,7 @@ class SwooleHttp extends ZSwooleHttp
         ];
         return $mvc;
     }
+
 
     /**
      * @param $server
