@@ -10,6 +10,7 @@
 	2.php版本需要7.0+
 	3.swoole版本1.8.*
 	4.如果用到异步redis，需要安装hiredis，安装教程:http://wiki.swoole.com/wiki/page/p-redis.html
+	5.由于本框架是异步的,同一时间内,一个work进程内会有多个请求在处理,所以请不要使用单例模式设置和获取各种变量
 
 ##运行demo
 
