@@ -26,15 +26,8 @@ return array(
         'enable' => true,
         'adapter' => 'File',
         'name' => 'sso',
-        'pconnect' => true,
-        'host' => '127.0.0.1',
-        'port' => 6379,
-        'timeout' => 0,
         'session_name'=>'ZPHP_SID',
         'cache_expire' => 20160,
-        'path' => '/',
-        'serure'=>false,
-        'httponly'=>true,
     ),
 
     'cookie'=> array(
