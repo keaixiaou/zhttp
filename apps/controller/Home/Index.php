@@ -6,7 +6,7 @@
  * Time: 下午3:58
  */
 
-namespace controllers\Home;
+namespace controller\Home;
 
 use service\TestService;
 use ZPHP\Cache\Factory;
@@ -31,9 +31,10 @@ class Index extends Controller{
 
     public function test(){
 
-        if(empty($_SESSION['user'])){
-            $_SESSION['user'] = yield table('admin_user')->where(['id'=>1])->find();
+        if(empty($this->input->session('user'))){
+            $this->input->session['user'] = yield table('admin_user')->where(['id'=>1])->find();
         }
+        $this->assign('session', $this->input->session());
         $this->display();
     }
 }

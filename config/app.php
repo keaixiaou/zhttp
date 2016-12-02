@@ -6,7 +6,7 @@ return array(
     'server_mode' => 'Socket',
     'project_name' => 'zhttp',
     'app_path' => 'apps',
-    'ctrl_path' => 'controllers',
+    'ctrl_path' => 'controller',
     'common_file'  => '/library/function.php',
     'socket' => array(
         'host' => '0.0.0.0',                          //socket 监听ip

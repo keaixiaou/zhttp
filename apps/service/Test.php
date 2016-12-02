@@ -8,7 +8,7 @@
 
 namespace service;
 
-class TestService{
+class Test{
     public function test(){
         $sql = 'select * from admin_user where id=1';
         $data['sql'] = $sql;
