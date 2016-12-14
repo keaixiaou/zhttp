@@ -1,6 +1,6 @@
 <?php
     return array(
-        //tcp 用于管理连接用的
+        /*tcp 用于管理连接用的(暂时没用)*/
         'connection'=>array(
             'adapter' => 'Redis',
             'pconnect' => true,

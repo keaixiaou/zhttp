@@ -8,6 +8,7 @@
 
 return array(
     'cache'=>array(
+        /*异步非阻塞这里的参数无效*/
         'adapter' => 'Redis',
         'pconnect' => true,
         'host' => '127.0.0.1',

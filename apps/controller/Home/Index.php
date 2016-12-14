@@ -23,7 +23,10 @@ use ZPHP\Model\Model;
 
 class Index extends Controller{
     public function index(){
-        $this->assign('data','Hello zhttp');
+        $data = yield Db::redis()->cache('abcd1');
+        $this->input->session['decr'] = $data;
+        $this->assign('data',$data);
+        $this->setTemplate('home');
         $this->display();
 
     }

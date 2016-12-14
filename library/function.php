@@ -24,6 +24,12 @@ function cache($key, $value='', $expire=3600){
         return $cache->get($key);
     }
     return $cache->set($key, $value, $expire);
+}
 
 
+function url($str){
+    if($str[0]!='/'){
+        $str = '/'.$str;
+    }
+    echo $str;
 }
