@@ -34,6 +34,33 @@ MIT license
     建议：
         如果是静态文件如css、js、image，可以直接用nginx代理
         如果是动态请求，最好使用nginx做代理转发
+   
+    
+```
+ nginx示例配置：
+    server {
+        listen       80;
+        server_name  zhttp.test.com;
+    root /Users/zhaoye/workspace/zhttp;
+    location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$
+    {
+        expires 30d;
+    }
+    location ~ .*\.(js|css)?$
+    {
+        expires 1h;
+    }
+location / {
+# 如果要在swoole里获取实际host          proxy_set_header Host $http_host;
+            proxy_pass http://127.0.0.1:8991;
+            proxy_http_version 1.1;
+            proxy_set_header Connection "keep-alive";
+    }
+    access_log  /usr/local/etc/nginx/logs/zhttp.log;
+}
+```
+    
+       
 
 ## 
 
@@ -93,27 +120,66 @@ MIT license
 ##controller
 ####2016-12-01-在controller注入get、post、session、cookie等参数（因为整个框架是异步的，所以会导致一个work进程内同时存在多个请求，所以$_GET,$_POST,$_REQUEST,$_SESSION等以前用的全局变量下一个请求的值影响上一个还没处理完请求的值，造成数据混乱）
 ```
-
-$this->input->get('id');
-//在controller里获取$_GET['id'];
-$this->input->get('id', true);
-//在controller里获取$_GET['id']被过滤过的值;
-$this->input->get();
-//在controller里获取整个$_GET
+获取值:
+	$this->input->get('id');
+	//在controller里获取$_GET['id'];
+	$this->input->get('id', true);
+	//在controller里获取$_GET['id']被过滤过的值;
+	$this->input->get();
+	//在controller里获取整个$_GET
+设置值：
+	$this->input->get['id'] = 1;
+	$this->input->session['user'] = $userinfo;
+	$this->input->cookie['load'] = 1;
+	
 支持request、post、files、server、cookie等，使用一样
-```
 
-##service
 ```
-service层：
+###session
+如果需要用到session需要配置session，如下
+
+```
+'session'=> array(
+        'enable' => true,
+        'adapter' => 'Redis',
+        'redis' => [
+            'ip' => '127.0.0.1',
+            'port' => 6379,
+            'select' => 1,
+            'password' => '123456',
+            'asyn_max_count' => 10,
+            'start_count' => 5,
+        ],
+        'name' => 'sses_',
+        'session_name'=>'ZPHP_SID',
+        'cache_expire' => 3600,
+    ),
+
+    'cookie'=> array(
+        'enable' => true,
+        'cache_expire' => 86400,
+    ),
+```
+上面的配置enable表示是否启用，adapter为记录session的途径，现在支持Redis或者File，name为session前缀，session_name为当session不存在寻找对应cookie的key来建立相应的session。cache_expire为session缓存时间，单位为秒
+
+##App全局服务容器：
+```
+model层：
 		$sql = 'select * from admin_user where id=1';
         $data['sql'] = $sql;
         $data['info'] = yield table('admin_user')->where(['id'=>1])->find();
         return $data;
-controller层:
+service层调用model相关方法：
+		$data = yield App::model('test')->get(1);
+		//test默认为model的类名，get为方法
+		return $data;
+		
+controller层调用service层的服务:
 		//使用1-封装在service层,controller层也得写yield
         $testservice = yield App::service('test')
+        //test默认为service的类名
         $data = yield $testservice->test();
+        //test为test里面的方法名
         return $data;
 
 ```
