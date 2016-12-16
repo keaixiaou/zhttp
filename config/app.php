@@ -24,7 +24,7 @@ return array(
     ),
     'session'=> array(
         'enable' => true,
-        'adapter' => 'Redis',
+        'adapter' => 'File',
         'redis' => [
             'ip' => '127.0.0.1',
             'port' => 6379,
