@@ -49,7 +49,11 @@ class SwooleHttp extends ZSwooleHttp
             $httpResult = $this->dispatcher->distribute($requestDeal);
             if($httpResult!=='NULL') {
                 if(!is_string($httpResult)){
-                    $httpResult = json_encode($httpResult);
+                    if(strval(Config::getField('project','type'))=='api'){
+                        $httpResult = json_encode($httpResult);
+                    }else{
+                        $httpResult = strval($httpResult);
+                    }
                 }
                 $response->end($httpResult);
             }
