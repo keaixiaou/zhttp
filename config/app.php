@@ -25,6 +25,7 @@ return array(
     'session'=> array(
         'enable' => true,
         'adapter' => 'File',
+        'path' => 'session_tmp',
         'redis' => [
             'ip' => '127.0.0.1',
             'port' => 6379,
@@ -44,6 +45,7 @@ return array(
     ),
 
     'project'=>array(
+        'type' => 'api',
         'name'=>'zhttp',                 //项目名称。(会做为前缀，隔离不同的项目)
         'view_mode'=>'Stringv',   		//view模式
         'ctrl_name'=>'a',				//ctrl参数名

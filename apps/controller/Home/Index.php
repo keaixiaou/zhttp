@@ -13,6 +13,7 @@ use ZPHP\Cache\Factory;
 use ZPHP\Cache\ICache;
 use ZPHP\Controller\ApiController;
 use ZPHP\Controller\Controller;
+use ZPHP\Core\App;
 use ZPHP\Core\Config;
 use ZPHP\Core\Log;
 use ZPHP\Core\Db;
@@ -23,12 +24,11 @@ use ZPHP\Model\Model;
 
 class Index extends Controller{
     public function index(){
-        $data = yield Db::redis()->cache('abcd1');
-        $this->input->session['decr'] = $data;
-        $this->assign('data',$data);
+//        $data = yield Db::redis()->cache('abcd1');
+//        $this->input->session['decr'] = $data;
+        $this->assign('data',-2017);
         $this->setTemplate('home');
         $this->display();
-
     }
 
 
@@ -39,5 +39,12 @@ class Index extends Controller{
         }
         $this->assign('session', $this->input->session());
         $this->display();
+    }
+
+    public function getTest(){
+        $data = yield App::service('test')->fuck();
+        $this->assign('data', $data);
+        $this->setTemplate('home');
+        $this->display('index');
     }
 }
