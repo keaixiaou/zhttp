@@ -26,7 +26,7 @@ class Index extends Controller{
     public function index(){
 //        $data = yield Db::redis()->cache('abcd1');
 //        $this->input->session['decr'] = $data;
-        $this->assign('data',-2017);
+        $this->assign('data', Config::get('project_name'));
         $this->setTemplate('home');
         $this->display();
     }
