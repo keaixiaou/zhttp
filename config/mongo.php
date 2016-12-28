@@ -9,8 +9,9 @@
 
 return [
     'mongo' => [
+        'asyn_max_count' => 5,
         'host' => '127.0.0.1',
-        'port' => 50000,
+        'port' => 5000,
         'database' => 'test',
         ],
 ];

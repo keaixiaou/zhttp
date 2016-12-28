@@ -24,11 +24,7 @@ use ZPHP\Model\Model;
 
 class Index extends Controller{
     public function index(){
-//        $data = yield Db::redis()->cache('abcd1');
-//        $this->input->session['decr'] = $data;
-        $this->assign('data', Config::get('project_name'));
-        $this->setTemplate('home');
-        $this->display();
+        return 'Hello zhttp!';
     }
 
 
@@ -46,5 +42,12 @@ class Index extends Controller{
         $this->assign('data', $data);
         $this->setTemplate('home');
         $this->display('index');
+    }
+
+
+    public function mongo(){
+        $finddata = yield Db::collection('test')->where(['likes'=>100])->find();
+        $getdata = yield Db::collection('test')->where(['likes'=>100])->get();
+        $this->jsonReturn([$finddata,$getdata]);
     }
 }
