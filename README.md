@@ -35,12 +35,15 @@ MIT license
 	本框架只支持http模式：
 	运行：
 	cd 到根目录
-	php webroot/main.php start|stop|restart|reload
+	php webroot/main.php start|stop|restart|reload|status
 	访问IP:PORT
     建议：
         如果是静态文件如css、js、image，可以直接用nginx代理
         如果是动态请求，最好使用nginx做代理转发
-   
+        
+###服务监控图
+![服务监控](https://raw.githubusercontent.com/keaixiaou/base/master/status.jpeg)
+
     
 ```
  nginx示例配置：
@@ -378,8 +381,6 @@ $data = Db::collection('stu_quest_score')->where(['like'=>100])->find();
 ```
 
 ![本机裸跑输出](https://raw.githubusercontent.com/keaixiaou/base/master/mongo.jpeg)
-
-
 
 
 ##ab测试（配置：MacBook Air 8G内存，双核，I5）
