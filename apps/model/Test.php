@@ -7,8 +7,23 @@
  */
 
 namespace model;
+use ZPHP\Core\Db;
+
 class Test{
     public function getUserById($id){
-        return table('user')->where(['id'=>$id])->find();
+        $data = yield table('user')->where(['id'=>$id])->find();
+        return json_encode($data);
     }
+
+
+    public function test($key){
+        $data = yield Db::redis()->cache($key);
+        return $data;
+    }
+
+    public function getUserDetail($id, $name){
+        $user = yield Db::table('user')->where(['id'=>$id])->find();
+        return ['user'=>$user,'id'=> $id, 'name'=>$name];
+    }
+
 }

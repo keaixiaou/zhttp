@@ -6,12 +6,16 @@
  * Time: 下午5:49
  */
 
-return [    'route'=>
+return [
+    'route'=>
     [
         'ANY' => [
             '/Test/{id}' => function($id){
-                return \ZPHP\Core\App::controller('Home\Index')->index($id);
+                return \ZPHP\Core\App::model('test')->getUserById($id);
             },
+        ],
+        'POST'  => [
+            '/testinfo/save' => '\index\testrout',
         ],
     ],
 ];

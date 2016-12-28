@@ -7,6 +7,8 @@
 ## 新手入门项目，附有源码和线上实例（主要用于介绍）
 https://github.com/keaixiaou/zhttptest/
 
+## 使用手册（待完善）
+https://keaixiaou.gitbooks.io/zhttp/content/
 
 ##协议
 MIT license
@@ -90,34 +92,33 @@ location / {
 ####​2016-12-01 新增自定义路由
 
 ```
-​	目前路由支持：
 ​	1.普通闭包函数；
-​	2.指定controller和method；
-​	3.闭包里直接调用相关yield方法（尽量不要这么做，后期维护性差）
-	只需要在route.php里配置自定义路由，就可以在请求中使用。
-        'GET' => [
-            '/testindex' => function(){return 111;},
-            //1.普通闭包函数
-        ],
-        'POST' => [
-
-            '/test/{id}' => function($id){
-                return $id;
-            },
-        ],
-        'ANY' => [
-            '/' => '\Home\Index\main',
-            //2.指定controller和method
-            '/user/{name}/no/{id}' => function($id, $name){
-                $data = yield \ZPHP\Core\App::controller('home\index')->user($id, $name);
-                return ['data'=>$data];
-            },
-                //3.有相关异步操作的闭包,App::controller是获取全局容器里的controller
-            '/user/{id}' => function($id){
-                return \ZPHP\Core\App::controller('home\index')->user($id);
-            },
-            //3.直接获取相关controller的数据
-        ],
+ ​	2.指定model或者server里的method；
+ ​	3.闭包里直接调用相关yield方法（尽量不要这么做，后期维护性差）
+    只需要在route.php里配置自定义路由，就可以在请求中使用。
+         'GET' => [
+             '/testindex' => function(){return 111;},
+             //1.普通闭包函数
+         ],
+         'POST' => [
+ 
+             '/test/{id}' => function($id){
+                 return $id;
+             },
+         ],
+         'ANY' => [
+             '/' => '\Home\Index\main',
+             //2.指定model和method
+             '/user/{name}/no/{id}' => function($id, $name){
+                 $data = yield \ZPHP\Core\App::model('test')->getUserDetail($id, $name);
+                 return ['data'=>$data];
+             },
+                 //3.有相关异步操作的闭包,App::model是获取全局容器里的model
+             '/user/{id}' => function($id){
+                 return \ZPHP\Core\App::model('test')->getUserById($id);
+             }
+      
+         ]
 
 ```
 
