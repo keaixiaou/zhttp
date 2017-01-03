@@ -1,6 +1,10 @@
 <div class="container" style="width:100%">
     <div class="content">
-        <div class="title"><?php echo json_encode($data); ?>.</div>
+        <div class="title">
+            <volist name="data" id="vo">
+                <div>{$data[0]['nickname']}</div>
+            </volist>
+            .</div>
     </div>
 </div>
 <div class="container">
