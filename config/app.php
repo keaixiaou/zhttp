@@ -46,7 +46,7 @@ return array(
     'project'=>array(
         'name'=>'zhttp',
         'view'=> [
-            'tag'=>true,
+            'tag'=>false,
         ],
         'pid_path'  => ROOTPATH.'/webroot',
         'mvc'  => [
