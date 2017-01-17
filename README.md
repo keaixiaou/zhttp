@@ -8,7 +8,7 @@
 https://github.com/keaixiaou/zhttptest/
 
 ## 使用手册（待完善）
-https://keaixiaou.gitbooks.io/zhttp/content/
+http://gitbook.jeekzx.com/
 
 ##协议
 MIT license
