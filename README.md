@@ -7,8 +7,8 @@
 ## 新手入门项目，附有源码和线上实例（主要用于介绍）
 https://github.com/keaixiaou/zhttptest/
 
-###最新框架依赖环境docker镜像已经发布,拉取方法
-###(内置mongodb扩展、memcached扩展、swoole扩展1.9包括异步redis)
+最新框架依赖环境docker镜像已经发布,拉取方法(内置mongodb扩展、memcached扩展、swoole扩展1.9包括异步redis)
+
 ```
 docker pull keaixiaou/zhttp:1.0
 ```
