@@ -5,26 +5,30 @@ use \ZPHP\Socket\Adapter\Swoole;
 return array(
     'server_mode' => 'Socket',
     'project_name' => 'zhttp',
-    'app_path' => 'apps',
+    'app_path' => 'src',
+    'doc_path' => 'doc',
     'ctrl_path' => 'controller',
     'common_file'  => '/library/function.php',
+    'swoole_module' => [
+//        'test'=>ROOTPATH.'/extension/test.so'
+    ],
     'socket' => array(
-        'host' => '0.0.0.0',                          //socket 监听ip
-        'port' => 8991,                             //socket 监听端口
-        'adapter' => 'Swoole',                          //socket 驱动模块
-        'server_type' => Swoole::TYPE_HTTP,              //socket 业务模型 tcp/udp/http/websocket
-        'daemonize' => 1,                             //是否开启守护进程
-        'work_mode' => 3,                             //工作模式：1：单进程单线程 2：多线程 3： 多进程
-        'task_worker_num' => 0,
-        'worker_num' => 1,                                 //工作进程数
-        'max_request' => 0,                            //单个进程最大处理请求数
+        'host' => '0.0.0.0',
+        'port' => 8991,
+        'adapter' => 'Swoole',
+        'server_type' => Swoole::TYPE_WEBSOCKET ,
+        'daemonize' => 1,
+        'work_mode' => 3,
+        'single_task_worker_num' => 1,
+        'worker_num' => 2,
+        'max_request' => 0,
         'debug_mode' => 1,
-        'log_file' => ROOTPATH.'/tmp/log/swoole.log',//打开调试模式
+        'log_file' => ROOTPATH.'/tmp/log/swoole.log',
     ),
     'session'=> array(
-        'enable' => true,
+        'enable' => false,
         'adapter' => 'File',
-        'path' => '/tmp/zhttpsession',
+        'path' => ROOTPATH.'/tmp/session',
         'redis' => [
             'ip' => '127.0.0.1',
             'port' => 6379,
@@ -39,20 +43,38 @@ return array(
     ),
 
     'cookie'=> array(
-        'enable' => true,
+        'enable' => false,
         'cache_expire' => 86400,
     ),
 
     'project'=>array(
         'name'=>'zhttp',
         'view'=> [
-            'tag'=>false,
+            'tag'=>true,
         ],
-        'pid_path'  => ROOTPATH.'/webroot',
+        'pid_path'  => ROOTPATH.'/bin',
         'mvc'  => [
-            'module'=>'Home', 'controller' => 'Index', 'action' => 'index'
+            'module'=>'Home',
+            'controller' => 'Index',
+            'action' => 'index'
         ],
+        'timeout' => 15000,
         'reload' => DEBUG,
-    )
+    ),
+
+    'websocket' => [
+        'parse' =>[
+            'module'=>'Home',
+            'controller' => 'Index',
+            'action' => 'index',
+            'field' => [
+                'data' => 'd',
+                'route' => 'm',
+            ],
+            'route' => [
+                'login'=>'Index/index',
+            ],
+        ],
+    ],
 
 );

@@ -8,6 +8,6 @@
 
 return [
   'model'   =>  [
-        'Mytest' => model\Test::class,
+//        'Mytest' => model\Test::class,
   ],
 ];

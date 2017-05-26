@@ -7,8 +7,8 @@
  */
 
 
-function table($tableName){
-    return \ZPHP\Core\Db::getInstance()->table($tableName);
+function table($tableName, $poolName){
+    return \ZPHP\Core\Db::getInstance()->table($tableName, $poolName);
 }
 
 function collection($collectionName){

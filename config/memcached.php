@@ -9,7 +9,7 @@
 return [
 
     'memcached' => [
-        'host'=>'192.168.5.5',
+        'host'=>'120.27.143.217',
         'port' => 11211,
         'asyn_max_count' => 0,
     ],

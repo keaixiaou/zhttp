@@ -9,11 +9,13 @@
 
 return [
     'redis'=>[
+//        'ip' => '120.27.143.217',
         'ip' => '127.0.0.1',
-        'port' => 6379,
-        'select' => 0,
-        'password' => '123456',
+        'port' => 6602,
+//        'select' => 0,
+//        'password' => '123456',
         'asyn_max_count' => 10,
         'start_count' => 0,
+        'max_onetime_task' => 10000,
     ]
 ];

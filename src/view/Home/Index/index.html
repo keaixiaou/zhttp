@@ -1,9 +1,7 @@
 <div class="container" style="width:100%">
     <div class="content">
         <div class="title">
-            <volist name="data" id="vo">
-                <div>{$data[0]['nickname']}</div>
-            </volist>
+                <div><?php echo $vo['nickname']?></div>
             .</div>
     </div>
 </div>
@@ -11,5 +9,6 @@
 </div>
 <div class="rich_media_content " id="js_content" style="display: table-row-group;">
     <p style="text-align: center;">
+        {$session['name']}
     </p>
 </div>
