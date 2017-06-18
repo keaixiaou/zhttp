@@ -9,10 +9,10 @@
 return [
     'mysql'=>[
         'default' =>[
-            'host' => '120.27.143.217',
+            'host' => '127.0.0.1',
             'port' => 3306,
-            'user' => 'jeekzx',
-            'password' => '7f331f',
+            'user' => 'test',
+            'password' => 'test',
             'database' => 'test',
             'charset' => 'utf8', //指定字符集
             'asyn_max_count' => 10,

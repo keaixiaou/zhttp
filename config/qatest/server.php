@@ -16,7 +16,7 @@ return [
         'daemonize' => 1,
         'work_mode' => 3,
         'single_task_worker_num' => 1,
-        'worker_num' => 2,
+        'worker_num' => 4,
         'max_request' => 0,
         'debug_mode' => 1,
         'log_file' => ROOTPATH.'/tmp/log/swoole.log',

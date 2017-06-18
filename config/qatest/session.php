@@ -8,7 +8,7 @@
 
 return [
     'session' => [
-        'enable' => false,
+        'enable' => true,
         'adapter' => 'File',
         'path' => ROOTPATH.'/tmp/session',
         'redis' => [
