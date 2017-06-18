@@ -45,11 +45,15 @@ class Index extends Controller{
 //        return $data;
         //单线程控制
             //向task 进程投递任务
+        $httpClient = new HttpClientCoroutine();
+        $data = $httpClient->request('http://wx.royldesign.cn/api/votes');
         $default = yield Db::table('shechem_wx_wxuser')
             ->where(['openid'=>'om0Kyv7zD6pzDaSQixDOZcs1VehE'])->find();
-        $read = yield Db::table('shechem_wx_wxuser', 'read')->where(['openid'=>'om0Kyv7zD6pzDaSQixDOZcs1VehE'])
-            ->find();
-        $this->jsonReturn(['d'=>$default, 'r'=>$read]);
+//        $read = yield Db::table('shechem_wx_wxuser', 'read')->where(['openid'=>'om0Kyv7zD6pzDaSQixDOZcs1VehE'])
+//            ->find();
+//        $default = [];
+//        $read = [];
+        $this->jsonReturn(['d'=>$default, 'r'=>null]);
 //        $data = yield Db::task()->callCoroutine(
 //                array('class'=>'service\\InputMember',
 //                    'method'=>'index',
@@ -78,9 +82,11 @@ class Index extends Controller{
           'user_id' => intval($this->request->get['user_id']),
             'debug' => true,
         ];
+        $info = yield table('users')->where('phone=14400001001')->find();
+//        $info = yield App::model('Users')->getUserInfoByPhone(14400001001);
 //        $param = 'user_id=5180125&debug=json';
 //        Log::write('param:'.json_encode($param));
-        $this->strReturn($param);
+        $this->jsonReturn($info);
         //        $data = yield table('admin_user')->where(['id'=>1])->field('`id`,nickname')->find();
 //
 //        $this->jsonReturn(['data'=>$data,'sql'=> DB::getLastSql()]);

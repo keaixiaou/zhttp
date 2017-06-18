@@ -7,9 +7,7 @@
  */
 
 return [
-    'route'=>
-    [
-
+    'route'=>[
 //        'ANY' => [
 //            '/Test/{id}' => function($id){
 //                return \ZPHP\Core\App::model('test')->getUserById($id);
@@ -18,14 +16,14 @@ return [
 //                return \ZPHP\Core\App::model('test')->getUserByIds($id);
 //            },
 //        ],
-//        'POST'  => [
-//            '/testinfo/save' => '\index\testrout',
-//        ],
+        'POST'  => [
+            '/testinfo/save' => '\index\testrout',
+        ],
 //        'GET' => [
 //            '/testtn/{time}/{name}' => function($name, $time){
 //                $id = yield \ZPHP\Core\App::model('Test')->insert($time, $name);
 //                return json_encode(['id'=>$id]);
 //            }
 //        ]
-    ],
+    ]
 ];

@@ -7,7 +7,7 @@
  */
 
 
-function table($tableName, $poolName){
+function table($tableName, $poolName='default'){
     return \ZPHP\Core\Db::getInstance()->table($tableName, $poolName);
 }
 

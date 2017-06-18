@@ -8,7 +8,7 @@
 
 
 return [
-    'redis'=>[
+    'redis' => [
         'ip' => '127.0.0.1',
         'port' => 6602,
 //        'select' => 0,
@@ -16,5 +16,5 @@ return [
         'asyn_max_count' => 10,
         'start_count' => 0,
         'max_onetime_task' => 10000,
-    ]
+    ],
 ];
