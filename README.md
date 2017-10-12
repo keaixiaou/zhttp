@@ -14,7 +14,7 @@ docker pull keaixiaou/zhttp:1.0
 ```
 
 ## 使用手册（待完善）
-http://gitbook.jeekzx.com/
+https://www.gitbook.com/book/keaixiaou/zhttp
 
 
 ## 协议
