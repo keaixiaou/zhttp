@@ -9,6 +9,7 @@
 
 namespace controller\Api;
 
+use middleware\Authtoken;
 use ZPHP\Controller\Controller;
 use ZPHP\Core\App;
 use ZPHP\Core\Db;
@@ -17,8 +18,8 @@ use ZPHP\Coroutine\Http\HttpClientCoroutine;
 
 class  Main extends Controller{
     protected function init(){
-//        $check = yield App::middleware('Authtoken')->check('uf_135167_zchat');
-//        Log::write('check:'.print_r($check, true));
+//        $check = yield App::make(Authtoken::class)->check('uf_135167_zchat');
+//        echo '----check:'.print_r($check, true);
 //        if(!$check){
 //            $this->strReturn("no token");
 //        }
@@ -26,63 +27,19 @@ class  Main extends Controller{
     }
 
 
-    /**
-     * @method POST
-     * @description  首页接口
-     * @param int $a  用户编号 optional
-     * @param int $b 用户名称
-     * @return String $c 用户性别
-     * @return Int $a 用户编号
-     * @return Array $list 列表
-     * @return _Int $c 昵称
-     * @return _object $d 用户对象
-     * @return __object $f 对象f
-     * @return ___object $g 对象g
-     * @return ____int $f 对象f
-     * @return int $data 数据
-     * @return Array $data 列表
-     * @return _Int $c 昵称
-     * @return _object $d 用户对象
-     * @return __object $f 对象f
-     * @return ___object $g 对象g
-     * @return ____object $g 对象g
-     * @return _____int $g 对象g
-     * @return _____object $g 对象g
-     * @return ______string $k 对象K
-     */
-    PUBLIC function index(){
+    public function update(){
+        $res = yield Db::table('user')->where(['id'=>2])->find();
+        echo Db::getLastSql();
+        $this->jsonReturn($res);
+    }
 
-        $a = ['a'=>1];
-//        $a = App::model('Test');
-//        throw new \Exception(print_r($a, true));
-        $id = $this->request->get('id');
-//        $this->redirect('http://www.baidu.com/');
-//        $module = Db::getSwooleModule()->cppMethod(333);
-//        $redis = yield Db::redis()->lpop('myqueue');
-//        $this->jsonReturn($redis);
-//        $redis = yield Db::redis()->cache('abcd1');
-//        $i = 12;
-//        while($i<=100){
-//            $data = [
-//                'no' => $i,
-//                'content'=>str_repeat(strval($i),3),
-//                'age' => $i,
-//                'school' => $i,
-//            ];
-//            $redis = yield Db::table('test')->add($data);
-//            $i++;
-//        }
-//        $redis = yield Db::table()->query("update test set content='51456467' where id=1;");
-//        $redis = json_encode($redis);
-//        $redis = getmypid();
-//        $task = ['class'=>\service\Test::class,'method'=>'task','param'=>'task1'];
-//        Db::task()->call($task);
+    public function index(){
 
-//        $task['param'] = 'task2';
-//        $taskRes = yield Db::task()->callCoroutine($task);
-        $res =  "hello world!".$id;
-        Log::write('res:'.$res);
-        $this->jsonReturn($this->request);
+        $data = ['name'=>':华尔街'];
+
+        $res = yield Db::table('test')->add($data);
+        echo Db::getLastSql();
+        $this->jsonReturn($res);
 
 
     }
@@ -154,7 +111,7 @@ class  Main extends Controller{
      *
      */
     function mysql(){
-        $redis = yield Db::table('user')->where(['id'=>1])->find();
+        $redis = yield Db::table('goods')->where(['id'=>1])->find();
         $this->jsonReturn($redis);
     }
 

@@ -8,6 +8,7 @@
 
 namespace service;
 
+use model\Users;
 use ZPHP\Core\App;
 
 class Account{
@@ -16,7 +17,7 @@ class Account{
         if (empty($password)) {
             return 1012; // 密码不能为空
         }
-        $userInfo = yield App::model('Users')->getUserInfoByPhone($phone);
+        $userInfo = yield App::make(Users::class)->getUserInfoByPhone($phone);
         return $userInfo;
 
         // 这个地方userInfo 拿到的字段不全

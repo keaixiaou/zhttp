@@ -8,6 +8,9 @@
 
 namespace controller\Home;
 
+use model\Account;
+use model\Users;
+use service\Test;
 use service\TestService;
 use ZPHP\Cache\Factory;
 use ZPHP\Cache\ICache;
@@ -33,6 +36,7 @@ class Index extends Controller{
     }
 
     public function index(){
+        $data = (new Account())->getUserId();
         $this->strReturn('Hello Zhttp!');
     }
 
@@ -96,9 +100,9 @@ class Index extends Controller{
             'debug' => true,
         ];
         $info = yield table('users')->where('phone=14400001001')->find();
-//        $info = yield App::model('Users')->getUserInfoByPhone(14400001001);
-//        $param = 'user_id=5180125&debug=json';
-//        Log::write('param:'.json_encode($param));
+        $info = yield App::make(Users::class)->getUserInfoByPhone(14400001001);
+        $param = 'user_id=5180125&debug=json';
+        Log::write('param:'.json_encode($param));
         $this->jsonReturn($info);
         //        $data = yield table('admin_user')->where(['id'=>1])->field('`id`,nickname')->find();
 //
@@ -109,7 +113,7 @@ class Index extends Controller{
 
 
     public function getTest(){
-        $data = yield App::service('test')->fuck();
+        $data = yield App::make(Test::class)->fuck();
         $this->assign('data', $data);
         $this->setTemplate('home');
         $this->display('index');
