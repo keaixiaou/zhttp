@@ -2,7 +2,7 @@
 
 return [
     'project'=>[
-
+        "debug_trace" => "debug_trace",
         'project_name' => 'zhttp',
         'app_path' => 'src',
         'pid_path'  => ROOTPATH.'/bin',
